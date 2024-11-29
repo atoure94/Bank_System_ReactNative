@@ -60,7 +60,8 @@ const styles = StyleSheet.create({
     },
     title: {
         fontFamily: "Poppins-SemiBold",
-        fontSize: 24,
+        fontSize: 48,
+        fontWeight: "bold",
         color: "#000",
         textAlign: "center",
         marginBottom: 15, // Space below the title

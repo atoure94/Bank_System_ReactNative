@@ -5,13 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0a448a72-9bbd-4f1e-a0a9-43db8b455051" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/assets/onBoardingImages/lock.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/onBoardingImages/register.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/success.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/screens/HomeScreen.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/screens/authentication/ForgotPassword/ChangePasswordScreen.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/screens/authentication/ForgotPassword/ForgotPasswordScreen.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/screens/authentication/ForgotPassword/OTPChangePasswordScreen.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/screens/authentication/ForgotPassword/SuccessChangeScreen.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/screens/authentication/OTPInputScreen.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/react-native.config.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/config/routes/Navigation.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/config/routes/Navigation.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/screens/authentication/LoginScreen.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/screens/authentication/LoginScreen.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/screens/authentication/RegistrationScreen.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/screens/authentication/RegistrationScreen.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/screens/onboarding/FirstOnboarding.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/screens/onboarding/FirstOnboarding.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/screens/onboarding/SecondOnBoarding.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/screens/onboarding/SecondOnBoarding.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/screens/onboarding/ThirdOnBoarding.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/screens/onboarding/ThirdOnBoarding.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +61,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/mac/Desktop/project/Bank_system_RN/assets/onBoardingImages",
+    "last_opened_file_path": "/Users/mac/Desktop/project/Bank_system_RN/assets/fonts",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -65,8 +73,14 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/assets/fonts" />
       <recent name="$PROJECT_DIR$/assets/onBoardingImages" />
       <recent name="$PROJECT_DIR$/assets/onboardingImages" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/assets" />
+      <recent name="$PROJECT_DIR$/components/screens/authentication/ForgotPassword" />
+      <recent name="$PROJECT_DIR$/assets/fonts" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -86,7 +100,7 @@
       <updated>1732808952583</updated>
       <workItem from="1732808954006" duration="5238000" />
       <workItem from="1732834432010" duration="5000" />
-      <workItem from="1732870098955" duration="12521000" />
+      <workItem from="1732870098955" duration="17596000" />
     </task>
     <servers />
   </component>

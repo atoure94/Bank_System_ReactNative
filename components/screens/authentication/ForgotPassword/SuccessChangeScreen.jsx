@@ -1,28 +1,22 @@
-import {Text, View, StyleSheet, Image, TouchableOpacity} from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import {HomeScreen} from "../../HomeScreen";
 
-export default function ThirdOnBoarding({ navigation }) {
+export default function SucessChangeScreen({navigation}) {
     return (
         <View style={styles.container}>
             <Image
                 style={styles.logo}
-                source={require('../../../assets/onBoardingImages/Group 4.png')}
+                source={require('../../../../assets/success.png')}
             />
-            <View style={styles.pagination}>
-                <View style={styles.dot} />
-                <View style={styles.dot} />
-                <View style={[styles.dot, styles.activeDot]} />
-            </View>
             <Text style={styles.title}>
-                Paying for Everything is Easy and Convenient
+                SUCCESS
             </Text>
-            <Text style={styles.description}>
-                Built-in Fingerprint, face recognition and more, keeping you completely safe
-            </Text>
+
             <TouchableOpacity
                 style={styles.button}
-                onPress={() => navigation.navigate('LoginScreen')}
+                onPress={() => navigation.navigate('HomeScreen')}
             >
-                <Text style={styles.buttonText}>Next</Text>
+                <Text style={styles.buttonText}>Ok</Text>
             </TouchableOpacity>
 
         </View>
@@ -38,8 +32,8 @@ const styles = StyleSheet.create({
         backgroundColor: "#ffffff",
     },
     logo: {
-        width: 370, // Adjust based on your image dimensions
-        height: 300,
+        width: 300, // Adjust based on your image dimensions
+        height: 200,
         resizeMode: "contain",
         marginBottom: 40, // Space below the image
     },
@@ -49,21 +43,11 @@ const styles = StyleSheet.create({
         alignItems: "center",
         marginBottom: 20, // Space below pagination
     },
-    dot: {
-        width: 10,
-        height: 10,
-        borderRadius: 5,
-        backgroundColor: "#d3d3d3", // Gray color for inactive dots
-        marginHorizontal: 5,
-    },
-    activeDot: {
-        backgroundColor: "#007BFF", // Blue color for the active dot
-    },
     title: {
         fontFamily: "Poppins-SemiBold",
-        fontSize: 40,
         fontWeight: "bold",
-        color: "#000",
+        fontSize: 30,
+        color: "#4d8944",
         textAlign: "center",
         marginBottom: 15, // Space below the title
     },

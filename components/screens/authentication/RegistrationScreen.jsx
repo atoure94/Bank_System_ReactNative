@@ -13,6 +13,21 @@ import BouncyCheckbox from 'react-native-bouncy-checkbox';
 const RegistrationScreen = ({ navigation }) => {
 
     const [isChecked, setIsChecked] = useState(false);
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [isValid, setIsValid] = useState(false);
+
+    const handleInputChange = (text: string) => {
+        setPhoneNumber(text);
+        setIsValid(/^\+?\d{10,15}$/.test(text)); // Validation pour les numéros internationaux (+XX...)
+    };
+
+    const handleSend = () => {
+        if (isValid) {
+            console.log(`Code OTP envoyé à ${phoneNumber}`);
+
+        }
+    };
+
     return (
         <SafeAreaView style={styles.container}>
             {/* Header */}
@@ -43,9 +58,6 @@ const RegistrationScreen = ({ navigation }) => {
                 <TextInput style={styles.input} placeholder="Phone number" />
                 <TextInput style={styles.input} placeholder="Password" secureTextEntry />
 
-                <TouchableOpacity>
-                    <Text style={styles.forgotPassword}>Forgot your password ?</Text>
-                </TouchableOpacity>
 
                 <View style={styles.checkboxContainer}>
                     <BouncyCheckbox
@@ -64,8 +76,10 @@ const RegistrationScreen = ({ navigation }) => {
             </View>
 
             {/* Sign In Button */}
-            <TouchableOpacity style={styles.signInButton} disabled={true}>
-                <Text style={styles.signInButtonText}>Sign in</Text>
+            <TouchableOpacity style={styles.signInButton}
+                              /*disabled = {!isValid}*/
+                              onPress={() => navigation.navigate('OTPInputScreen')}>
+                <Text style={styles.signInButtonText} >Sign up</Text>
             </TouchableOpacity>
 
             {/* Fingerprint and Sign Up */}
