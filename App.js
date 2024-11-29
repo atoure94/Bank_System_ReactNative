@@ -1,11 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import FirstOnBoarding from "./components/screens/onboarding/FirstOnboarding";
+import SecondOnBoarding from "./components/screens/onboarding/SecondOnBoarding";
+import ThirdOnBoarding from "./components/screens/onboarding/ThirdOnBoarding";
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <ThirdOnBoarding/>
     </View>
   );
 }
