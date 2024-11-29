@@ -5,11 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0a448a72-9bbd-4f1e-a0a9-43db8b455051" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/components/config/routes/Navigation.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/screens/onboarding/FirstOnboarding.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/screens/onboarding/FirstOnboarding.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/screens/onboarding/SecondOnBoarding.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/screens/onboarding/SecondOnBoarding.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/screens/onboarding/ThirdOnBoarding.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/screens/onboarding/ThirdOnBoarding.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +88,7 @@
       <updated>1732808952583</updated>
       <workItem from="1732808954006" duration="5238000" />
       <workItem from="1732834432010" duration="5000" />
-      <workItem from="1732870098955" duration="2779000" />
+      <workItem from="1732870098955" duration="5687000" />
     </task>
     <servers />
   </component>

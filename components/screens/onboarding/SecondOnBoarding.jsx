@@ -1,6 +1,6 @@
 import {Text, View, StyleSheet, Image, TouchableOpacity} from "react-native";
 
-export default function SecondOnBoarding() {
+export default function SecondOnBoarding({navigation}) {
     return (
         <View style={styles.container}>
             <Image
@@ -18,7 +18,10 @@ export default function SecondOnBoarding() {
             <Text style={styles.description}>
                 Built-in Fingerprint, face recognition and more, keeping you completely safe
             </Text>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity
+                style={styles.button}
+                onPress={() => navigation.navigate('ThirdOnBoarding')}
+            >
                 <Text style={styles.buttonText}>Next</Text>
             </TouchableOpacity>
         </View>

@@ -1,22 +1,9 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import FirstOnBoarding from "./components/screens/onboarding/FirstOnboarding";
-import SecondOnBoarding from "./components/screens/onboarding/SecondOnBoarding";
-import ThirdOnBoarding from "./components/screens/onboarding/ThirdOnBoarding";
+import React from 'react';
+import { registerRootComponent } from 'expo';
+import Navigation from './components/config/routes/Navigation'; // Adjust the path accordingly
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <ThirdOnBoarding/>
-    </View>
-  );
+  return <Navigation />;
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+registerRootComponent(App);

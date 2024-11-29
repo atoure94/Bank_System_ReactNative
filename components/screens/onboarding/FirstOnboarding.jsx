@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 
-export default function FirstOnBoarding() {
+export default function FirstOnBoarding({navigation}) {
     return (
         <View style={styles.container}>
             <Image
@@ -18,9 +18,13 @@ export default function FirstOnBoarding() {
             <Text style={styles.description}>
                 Integrate multiple payment methods to help you up the process quickly
             </Text>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity
+                style={styles.button}
+                onPress={() => navigation.navigate('SecondOnBoarding')}
+            >
                 <Text style={styles.buttonText}>Next</Text>
             </TouchableOpacity>
+
         </View>
     );
 }
