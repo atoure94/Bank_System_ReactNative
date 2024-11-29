@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     View,
     Text,
@@ -8,8 +8,11 @@ import {
     Image, SafeAreaView,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
 const RegistrationScreen = ({ navigation }) => {
+
+    const [isChecked, setIsChecked] = useState(false);
     return (
         <SafeAreaView style={styles.container}>
             {/* Header */}
@@ -23,30 +26,41 @@ const RegistrationScreen = ({ navigation }) => {
             {/* Welcome Text */}
             <View style={styles.welcomeContainer}>
                 <Text style={styles.welcomeTitle}>Welcome to us</Text>
-                <Text style={styles.welcomeSubtitle}>Hello there, sign in to continue</Text>
+                <Text style={styles.welcomeSubtitle}>Hello there, create new account</Text>
 
                 {/* Icon */}
-                <View style={styles.iconContainer}>
-                    <Ionicons name="lock-closed-outline" size={80} color="#007BFF" />
+                <View style={styles.logoContainer}>
+                    <Image
+                        style={styles.logo}
+                        source={require('../../../assets/onBoardingImages/register.png')}
+                    />
                 </View>
             </View>
 
             {/* Input Fields */}
             <View style={styles.inputContainer}>
-                <TextInput style={styles.input} placeholder="Name" placeholderTextColor="#ccc" />
-               <TextInput style={styles.input} placeholder="Text input" placeholderTextColor="#ccc" />
-                <TextInput
-                    style={styles.input}
-                    placeholder="Password"
-                    secureTextEntry={true}
-                    placeholderTextColor="#ccc"
-                />
+                <TextInput style={styles.input} placeholder="Name" />
+                <TextInput style={styles.input} placeholder="Phone number" />
+                <TextInput style={styles.input} placeholder="Password" secureTextEntry />
+
                 <TouchableOpacity>
                     <Text style={styles.forgotPassword}>Forgot your password ?</Text>
                 </TouchableOpacity>
 
-                <Text style={styles.privacytermButtonText}>By creating an account your aggree
-                    to our  Term and Condtions</Text>
+                <View style={styles.checkboxContainer}>
+                    <BouncyCheckbox
+                        size={25}
+                        fillColor="#4C42CC"
+                        unfillColor="#FFFFFF"
+                        text="By creating an account, you agree to our Terms and Conditions"
+                        iconStyle={{ borderColor: '#E0E0E0', borderRadius: 5 }}
+                        innerIconStyle={{ borderWidth: 2 }}
+                        textStyle={styles.checkboxText}
+                        onPress={(isChecked: boolean) => setIsChecked(isChecked)}
+                    />
+                </View>
+
+
             </View>
 
             {/* Sign In Button */}
@@ -85,7 +99,7 @@ const styles = StyleSheet.create({
     },
     welcomeContainer: {
         alignItems: 'center',
-        marginBottom: 30,
+        marginBottom: 5,
     },
     welcomeTitle: {
         fontSize: 28,
@@ -109,7 +123,7 @@ const styles = StyleSheet.create({
     input: {
         backgroundColor: '#fff',
         padding: 15,
-        borderRadius: 10,
+        borderRadius: 15,
         marginBottom: 10,
         borderColor: '#ccc',
         borderWidth: 1,
@@ -126,6 +140,8 @@ const styles = StyleSheet.create({
         fontSize: 14,
         marginTop: 5,
         margin: 5,
+        padding: 20,
+        paddingLeft:30,
     },
     signInButton: {
         backgroundColor: '#007BFF',
@@ -151,6 +167,32 @@ const styles = StyleSheet.create({
     signUpLink: {
         color: '#007BFF',
         fontWeight: 'bold',
+    },
+    logo: {
+        width: 180, // Adjust based on your image dimensions
+        height: 150,
+        resizeMode: "contain",
+        marginBottom: 40, // Space below the image
+    },
+    logoContainer: {
+        marginVertical: 20,
+        borderRadius: 50,
+        paddingTop:20,
+        paddingBottom:2,
+    },
+    checkboxContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 5,
+        paddingTop:5,
+        paddingLeft:20,
+    },
+    checkbox: {
+        marginRight: 10,
+    },
+    checkboxText: {
+        fontSize: 14,
+        color: '#6A6A6A',
     },
 });
 

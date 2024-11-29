@@ -26,14 +26,17 @@ const LoginScreen = ({ navigation }) => {
                 <Text style={styles.welcomeSubtitle}>Hello there, sign in to continue</Text>
 
                 {/* Icon */}
-                <View style={styles.iconContainer}>
-                    <Ionicons name="lock-closed-outline" size={80} color="#007BFF" />
+                <View style={styles.logoContainer}>
+                    <Image
+                        style={styles.logo}
+                        source={require('../../../assets/onBoardingImages/lock.png')}
+                    />
                 </View>
             </View>
 
             {/* Input Fields */}
             <View style={styles.inputContainer}>
-                <TextInput style={styles.input} placeholder="Text input" placeholderTextColor="#ccc" />
+                <TextInput style={styles.input} placeholder="Phone number" placeholderTextColor="#ccc" />
                 <TextInput
                     style={styles.input}
                     placeholder="Password"
@@ -101,13 +104,18 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         padding: 20,
     },
+    logoContainer: {
+        marginVertical: 20,
+        borderRadius: 50,
+        paddingTop:20,
+    },
     inputContainer: {
         marginBottom: 20,
     },
     input: {
         backgroundColor: '#fff',
         padding: 15,
-        borderRadius: 10,
+        borderRadius: 15,
         marginBottom: 10,
         borderColor: '#ccc',
         borderWidth: 1,
@@ -143,6 +151,12 @@ const styles = StyleSheet.create({
     signUpLink: {
         color: '#007BFF',
         fontWeight: 'bold',
+    },
+    logo: {
+        width: 180, // Adjust based on your image dimensions
+        height: 130,
+        resizeMode: "contain",
+        marginBottom: 40, // Space below the image
     },
 });
 
