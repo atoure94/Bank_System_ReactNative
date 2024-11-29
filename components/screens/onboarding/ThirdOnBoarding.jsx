@@ -20,9 +20,9 @@ export default function ThirdOnBoarding({ navigation }) {
             </Text>
             <TouchableOpacity
                 style={styles.button}
-                onPress={() => navigation.navigate('Home')}
+                onPress={() => navigation.navigate('LoginScreen')}
             >
-                <Text style={styles.buttonText}>Finish</Text>
+                <Text style={styles.buttonText}>Next</Text>
             </TouchableOpacity>
 
         </View>
