@@ -1,15 +1,57 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     View,
     Text,
     StyleSheet,
     TextInput,
     TouchableOpacity,
-    Image, SafeAreaView,
+    Image,
+    SafeAreaView,
+    Alert,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 const LoginScreen = ({ navigation }) => {
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [password, setPassword] = useState('');
+
+    // Données fictives d'utilisateurs pour la vérification
+    const mockUsers = [
+        {   
+            name:'ahmad',
+            phoneNumber: '1234567890',
+            balance:200000,
+            password: 'password123',
+            cardType: 'VISA',
+        },
+        {   
+            name:'toure',
+            balance:100000,
+            phoneNumber: '9876543210',
+            password: 'securepass',
+            cardType: 'MASTERCARD',
+        },
+    ];
+
+    const handleLogin = () => {
+        if (phoneNumber === '' || password === '') {
+            Alert.alert('Error', 'Please fill in all fields');
+            return;
+        }
+    
+        // Vérification des données de l'utilisateur
+        const user = mockUsers.find(
+            (user) => user.phoneNumber === phoneNumber && user.password === password
+        );
+    
+        if (user) {
+            Alert.alert('Success', 'Logged in successfully');
+            navigation.navigate('HomeScreen', { userDetails: user });
+        } else {
+            Alert.alert('Error', 'Invalid credentials');
+        }
+    };
+    
     return (
         <SafeAreaView style={styles.container}>
             {/* Header */}
@@ -36,12 +78,21 @@ const LoginScreen = ({ navigation }) => {
 
             {/* Input Fields */}
             <View style={styles.inputContainer}>
-                <TextInput style={styles.input} placeholder="Phone number" placeholderTextColor="#ccc" />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Phone number"
+                    placeholderTextColor="#ccc"
+                    value={phoneNumber}
+                    onChangeText={setPhoneNumber}
+                    keyboardType="phone-pad"
+                />
                 <TextInput
                     style={styles.input}
                     placeholder="Password"
                     secureTextEntry={true}
                     placeholderTextColor="#ccc"
+                    value={password}
+                    onChangeText={setPassword}
                 />
                 <TouchableOpacity>
                     <Text style={styles.forgotPassword} onPress={() => navigation.navigate('ForgotPasswordScreen')}>Forgot your password ?</Text>
@@ -49,7 +100,7 @@ const LoginScreen = ({ navigation }) => {
             </View>
 
             {/* Sign In Button */}
-            <TouchableOpacity style={styles.signInButton} /*disabled={true}*/ onPress={() => navigation.navigate('HomeScreen')}>
+            <TouchableOpacity style={styles.signInButton} onPress={handleLogin}>
                 <Text style={styles.signInButtonText}>Sign in</Text>
             </TouchableOpacity>
 
@@ -98,16 +149,10 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: '#8E8E93',
     },
-    iconContainer: {
-        marginVertical: 20,
-        backgroundColor: '#bfcfe3',
-        borderRadius: 50,
-        padding: 20,
-    },
     logoContainer: {
         marginVertical: 20,
         borderRadius: 50,
-        paddingTop:20,
+        paddingTop: 20,
     },
     inputContainer: {
         marginBottom: 20,
@@ -119,7 +164,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         borderColor: '#ccc',
         borderWidth: 1,
-        margin:20
+        margin: 20,
     },
     forgotPassword: {
         alignSelf: 'flex-end',
@@ -132,7 +177,7 @@ const styles = StyleSheet.create({
         padding: 15,
         borderRadius: 10,
         alignItems: 'center',
-        margin:20,
+        margin: 20,
     },
     signInButtonText: {
         color: '#ffffff',
@@ -153,10 +198,10 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     logo: {
-        width: 180, // Adjust based on your image dimensions
+        width: 180, // Ajustez selon vos dimensions d'image
         height: 130,
         resizeMode: "contain",
-        marginBottom: 40, // Space below the image
+        marginBottom: 40, // Espace sous l'image
     },
 });
 

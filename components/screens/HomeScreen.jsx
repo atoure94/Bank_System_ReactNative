@@ -2,19 +2,21 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 
-export function HomeScreen({ navigation }) {
+export function HomeScreen({ route, navigation }) {
+    const { userDetails } = route.params; // Récupérer les détails de l'utilisateur passés lors de la navigation
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.mainContent}>
                 {/* Card section */}
                 <View style={styles.cardContainer}>
                     <View style={styles.card}>
-                        <Text style={styles.cardTitle}>John Smith</Text>
+                        <Text style={styles.cardTitle}>{userDetails.name}</Text>
                         <Text style={styles.cardSubtitle}>Amazon Platinum</Text>
                         <View style={styles.cardDetails}>
-                            <Text style={styles.cardNumber}>**** **** **** 9018</Text>
-                            <Text style={styles.cardBalance}>$3,469.52</Text>
-                            <Text style={styles.cardType}>VISA</Text>
+                            <Text style={styles.cardNumber}>**** **** **** {userDetails.phoneNumber.slice(-4)}</Text>
+                            <Text style={styles.cardBalance}>${userDetails.balance || '0.00'}</Text>
+                            <Text style={styles.cardType}>{userDetails.cardType}</Text>
                         </View>
                     </View>
                 </View>
@@ -22,21 +24,22 @@ export function HomeScreen({ navigation }) {
                 {/* Button grid */}
                 <View style={styles.buttonGrid}>
                     {[
-                        { title: 'Account and Card', screen: 'AccountScreen' },
-                        { title: 'Transfer', screen: 'TransferScreen' },
-                        { title: 'Withdraw', screen: 'WithdrawScreen' },
-                        { title: 'Mobile prepaid', screen: 'PrepaidScreen' },
-                        { title: 'Pay the bill', screen: 'BillPaymentScreen' },
-                        { title: 'Save online', screen: 'SaveOnlineScreen' },
-                        { title: 'Credit card', screen: 'CreditCardScreen' },
-                        { title: 'Transaction report', screen: 'TransactionReportScreen' },
-                        { title: 'Beneficiary', screen: 'BeneficiaryScreen' }
+                        { title: 'Account and Card', icon: 'card', screen: 'AccountScreen' },
+                        { title: 'Transfer', icon: 'arrow-redo', screen: 'TransferScreen' },
+                        { title: 'Withdraw', icon: 'arrow-down-circle', screen: 'WithdrawScreen' },
+                        { title: 'Mobile prepaid', icon: 'phone-portrait', screen: 'PrepaidScreen' },
+                        { title: 'Pay the bill', icon: 'wallet', screen: 'BillPaymentScreen' },
+                        { title: 'Save online', icon: 'save', screen: 'SaveOnlineScreen' },
+                        { title: 'Credit card', icon: 'card-outline', screen: 'CreditCardScreen' },
+                        { title: 'Transaction report', icon: 'file-tray-full', screen: 'TransactionReportScreen' },
+                        { title: 'Beneficiary', icon: 'people', screen: 'BeneficiaryScreen' }
                     ].map((item, index) => (
                         <TouchableOpacity
                             key={index}
                             style={styles.button}
                             onPress={() => navigation.navigate(item.screen)}
                         >
+                            <Ionicons name={item.icon} size={30} color="#007BFF" />
                             <Text style={styles.buttonText}>{item.title}</Text>
                         </TouchableOpacity>
                     ))}
@@ -68,7 +71,6 @@ export function HomeScreen({ navigation }) {
 
 const styles = StyleSheet.create({
     container: {
-    
         flex: 1,
         backgroundColor: '#f9f9f9',
         flexDirection: 'column',
@@ -116,6 +118,7 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
     cardType: {
+        alignContent:"flex-end",
         color: '#ffffff',
         fontSize: 16,
     },
