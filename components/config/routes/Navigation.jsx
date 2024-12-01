@@ -12,6 +12,8 @@ import ChangePasswordScreen from "../../screens/authentication/ForgotPassword/Ch
 import OTPChangePasswordScreen from "../../screens/authentication/ForgotPassword/OTPChangePasswordScreen";
 import SucessChangeScreen from "../../screens/authentication/ForgotPassword/SuccessChangeScreen";
 import {HomeScreen} from "../../screens/HomeScreen";
+import {TransferScreen} from "../../screens/TransferScreen";
+import {WithdrawScreen} from "../../screens/WithdrawScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -30,6 +32,8 @@ const Navigation = () => {
                 <Stack.Screen name="ChangePasswordScreen" component={ChangePasswordScreen} />
                 <Stack.Screen name="SucessChangeScreen" component={SucessChangeScreen} />
                 <Stack.Screen name="HomeScreen" component={HomeScreen} />
+                <Stack.Screen name="TransferScreen" component={TransferScreen} />
+                <Stack.Screen name="WithdrawScreen" component={WithdrawScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );
