@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import {
     View,
     Text,
@@ -14,6 +15,7 @@ import { Ionicons } from '@expo/vector-icons';
 const LoginScreen = ({ navigation }) => {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [password, setPassword] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
     // Données fictives d'utilisateurs pour la vérification
     const mockUsers = [
@@ -33,24 +35,45 @@ const LoginScreen = ({ navigation }) => {
         },
     ];
 
-    const handleLogin = () => {
+    const handleLogin = async () => {
         if (phoneNumber === '' || password === '') {
             Alert.alert('Error', 'Please fill in all fields');
             return;
         }
     
-        // Vérification des données de l'utilisateur
-        const user = mockUsers.find(
-            (user) => user.phoneNumber === phoneNumber && user.password === password
-        );
+        setIsLoading(true);
     
-        if (user) {
-            Alert.alert('Success', 'Logged in successfully');
-            navigation.navigate('HomeScreen', { userDetails: user });
-        } else {
-            Alert.alert('Error', 'Invalid credentials');
+        try {
+            const response = await fetch('http://192.168.1.32:3000/users/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ phoneNumber, password }),
+            });
+    
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+    
+            const data = await response.json();
+            console.log(data);
+    
+            if (data.success) {
+                Alert.alert('Success', 'Login successful');
+                // Naviguer vers un autre écran
+                navigation.navigate('HomeScreen', { user: data.user });
+            } else {
+                Alert.alert('Error', data.message || 'Invalid credentials');
+            }
+        } catch (error) {
+            console.error('Fetch Error:', error);
+            Alert.alert('Error', 'Unable to connect to the server');
+        } finally {
+            setIsLoading(false);
         }
     };
+    
     
     return (
         <SafeAreaView style={styles.container}>
@@ -100,9 +123,16 @@ const LoginScreen = ({ navigation }) => {
             </View>
 
             {/* Sign In Button */}
-            <TouchableOpacity style={styles.signInButton} onPress={handleLogin}>
-                <Text style={styles.signInButtonText}>Sign in</Text>
-            </TouchableOpacity>
+            <TouchableOpacity
+    style={styles.signInButton}
+    onPress={handleLogin}
+    disabled={isLoading}
+>
+    <Text style={styles.signInButtonText}>
+        {isLoading ? 'Signing in...' : 'Sign in'}
+    </Text>
+</TouchableOpacity>
+
 
             {/* Fingerprint and Sign Up */}
             <View style={styles.bottomContainer}>
