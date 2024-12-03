@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 
 export function HomeScreen({ route, navigation }) {
-    const { userDetails } = route.params; // Récupérer les détails de l'utilisateur passés lors de la navigation
+    const [userDetails, setUserDetails] = useState(route.params.userDetails); // Récupérer les détails de l'utilisateur passés lors de la navigation
 
     return (
         <SafeAreaView style={styles.container}>
@@ -37,7 +37,7 @@ export function HomeScreen({ route, navigation }) {
                         <TouchableOpacity
                             key={index}
                             style={styles.button}
-                            onPress={() => navigation.navigate(item.screen)}
+                            onPress={() => navigation.navigate(item.screen, { userDetails, setUserDetails })}
                         >
                             <Ionicons name={item.icon} size={30} color="#007BFF" />
                             <Text style={styles.buttonText}>{item.title}</Text>
@@ -56,7 +56,7 @@ export function HomeScreen({ route, navigation }) {
                     <Ionicons name="search" size={24} color="white" />
                     <Text style={styles.navButtonText}>Search</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate('MessagesScreen')}>
+                <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate('MessageScreen')}>
                     <Ionicons name="mail" size={24} color="white" />
                     <Text style={styles.navButtonText}>Messages</Text>
                 </TouchableOpacity>

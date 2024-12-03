@@ -5,7 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0a448a72-9bbd-4f1e-a0a9-43db8b455051" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/components/screens/MessageScreen.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/screens/SettingsScreen.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/config/routes/Navigation.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/config/routes/Navigation.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/screens/HomeScreen.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/screens/HomeScreen.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/screens/TransferScreen.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/screens/TransferScreen.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/screens/WithdrawScreen.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/screens/WithdrawScreen.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/screens/authentication/LoginScreen.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/screens/authentication/LoginScreen.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,6 +95,7 @@
       <workItem from="1732834432010" duration="5000" />
       <workItem from="1732870098955" duration="18907000" />
       <workItem from="1732936187823" duration="3509000" />
+      <workItem from="1733172388628" duration="5135000" />
     </task>
     <servers />
   </component>

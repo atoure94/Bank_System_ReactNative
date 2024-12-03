@@ -1,21 +1,33 @@
-// WithdrawScreen.js
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, SafeAreaView, Alert } from 'react-native';
 
-export function WithdrawScreen({ navigation }) {
+export function WithdrawScreen({ route, navigation }) {
+    const { userDetails, setUserDetails } = route.params; // Receive userDetails and updater function
     const [amount, setAmount] = useState('');
 
     const handleWithdraw = () => {
-        if (!amount) {
-            Alert.alert('Error', 'Please fill out all fields');
+        const withdrawAmount = parseFloat(amount);
+
+        if (!amount || isNaN(withdrawAmount) || withdrawAmount <= 0) {
+            Alert.alert('Error', 'Please enter a valid amount');
             return;
         }
 
-        // You can add logic to handle the transfer process here
-        Alert.alert('Success', `Withdraw of $${amount}.`);
-        setAmount('');
-    };
+        if (withdrawAmount > userDetails.balance) {
+            Alert.alert('Error', 'Insufficient funds');
+            return;
+        }
 
+        const newBalance = userDetails.balance - withdrawAmount;
+
+        // Update balance and reset input
+        setUserDetails({ ...userDetails, balance: newBalance });
+        setAmount('');
+        Alert.alert('Success', `Withdrawal of $${withdrawAmount} completed`);
+
+        // Return to HomeScreen
+        navigation.goBack();
+    };
 
     return (
         <SafeAreaView style={styles.container}>
@@ -26,14 +38,19 @@ export function WithdrawScreen({ navigation }) {
                 <Text style={styles.label}>Amount</Text>
                 <TextInput
                     style={styles.input}
-                    placeholder="Amount"
+                    placeholder="Enter amount"
                     keyboardType="numeric"
                     value={amount}
                     onChangeText={setAmount}
                 />
-                <TouchableOpacity style={styles.button} onPress={handleWithdraw}>
+                <TouchableOpacity
+                    style={[styles.button, userDetails.balance === 0 && styles.buttonDisabled]}
+                    onPress={handleWithdraw}
+                    disabled={userDetails.balance === 0}
+                >
                     <Text style={styles.buttonText}>Submit</Text>
                 </TouchableOpacity>
+                {userDetails.balance === 0 && <Text style={styles.errorText}>Balance is zero. Cannot withdraw.</Text>}
             </View>
             <TouchableOpacity style={styles.cancelButton} onPress={() => navigation.goBack()}>
                 <Text style={styles.cancelText}>Cancel</Text>
@@ -66,7 +83,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.3,
         shadowRadius: 3.84,
         elevation: 5,
-        marginTop:80,
+        marginTop: 80,
     },
     label: {
         fontSize: 16,
@@ -87,6 +104,9 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         alignItems: 'center',
     },
+    buttonDisabled: {
+        backgroundColor: '#ccc',
+    },
     buttonText: {
         color: '#ffffff',
         fontSize: 16,
@@ -100,6 +120,11 @@ const styles = StyleSheet.create({
         color: '#007BFF',
         fontSize: 16,
         textDecorationLine: 'underline',
+    },
+    errorText: {
+        color: 'red',
+        marginTop: 10,
+        textAlign: 'center',
     },
 });
 

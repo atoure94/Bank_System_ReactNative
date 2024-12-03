@@ -14,6 +14,8 @@ import SucessChangeScreen from "../../screens/authentication/ForgotPassword/Succ
 import {HomeScreen} from "../../screens/HomeScreen";
 import {TransferScreen} from "../../screens/TransferScreen";
 import {WithdrawScreen} from "../../screens/WithdrawScreen";
+import SettingsScreen from "../../screens/SettingsScreen";
+import MessageScreen from "../../screens/MessageScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -34,6 +36,8 @@ const Navigation = () => {
                 <Stack.Screen name="HomeScreen" component={HomeScreen} />
                 <Stack.Screen name="TransferScreen" component={TransferScreen} />
                 <Stack.Screen name="WithdrawScreen" component={WithdrawScreen} />
+                <Stack.Screen name="MessageScreen" component={MessageScreen} />
+                <Stack.Screen name="SettingsScreen" component={SettingsScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );

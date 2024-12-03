@@ -16,17 +16,18 @@ const LoginScreen = ({ navigation }) => {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [password, setPassword] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-
+    const [message, setMessage]=useState('');
+    const [messageType, setMessageType]=useState('');
     // Données fictives d'utilisateurs pour la vérification
     const mockUsers = [
-        {   
+        {
             name:'ahmad',
             phoneNumber: '1234567890',
             balance:200000,
             password: 'password123',
             cardType: 'VISA',
         },
-        {   
+        {
             name:'toure',
             balance:100000,
             phoneNumber: '9876543210',
@@ -35,46 +36,32 @@ const LoginScreen = ({ navigation }) => {
         },
     ];
 
-    const handleLogin = async () => {
+    const handleLogin = () => {
         if (phoneNumber === '' || password === '') {
             Alert.alert('Error', 'Please fill in all fields');
             return;
         }
-    
-        setIsLoading(true);
-    
-        try {
-            const response = await fetch('http://192.168.1.32:3000/users/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ phoneNumber, password }),
-            });
-    
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-    
-            const data = await response.json();
-            console.log(data);
-    
-            if (data.success) {
-                Alert.alert('Success', 'Login successful');
-                // Naviguer vers un autre écran
-                navigation.navigate('HomeScreen', { user: data.user });
-            } else {
-                Alert.alert('Error', data.message || 'Invalid credentials');
-            }
-        } catch (error) {
-            console.error('Fetch Error:', error);
-            Alert.alert('Error', 'Unable to connect to the server');
-        } finally {
-            setIsLoading(false);
+
+        // Vérification des données de l'utilisateur
+        const user = mockUsers.find(
+            (user) => user.phoneNumber === phoneNumber && user.password === password
+        );
+
+        if (user) {
+            Alert.alert('Success', 'Logged in successfully');
+            navigation.navigate('HomeScreen', { userDetails: user });
+        } else {
+            Alert.alert('Error', 'Invalid credentials');
         }
     };
-    
-    
+
+
+    const handleMessage=(message, type='FAILED')=>{
+        setMessage(message);
+        setMessageType(type);
+    }
+
+
     return (
         <SafeAreaView style={styles.container}>
             {/* Header */}
