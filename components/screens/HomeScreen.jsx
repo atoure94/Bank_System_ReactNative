@@ -1,9 +1,23 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export function HomeScreen({ route, navigation }) {
-    const [userDetails, setUserDetails] = useState(route.params.userDetails); // Récupérer les détails de l'utilisateur passés lors de la navigation
+    const [userDetails, setUserDetails] = useState(route.params.userDetails);
+
+    useEffect(() => {
+        const fetchUserDetails = async () => {
+            const usersData = await AsyncStorage.getItem('users');
+            if (usersData) {
+                const users = JSON.parse(usersData);
+                const updatedUser = users.find(user => user.id === userDetails.id);
+                setUserDetails(updatedUser);
+            }
+        };
+
+        fetchUserDetails();
+    }, [route.params.userDetails]);
 
     return (
         <SafeAreaView style={styles.container}>
@@ -28,7 +42,7 @@ export function HomeScreen({ route, navigation }) {
                         { title: 'Transfer', icon: 'arrow-redo', screen: 'TransferScreen' },
                         { title: 'Withdraw', icon: 'arrow-down-circle', screen: 'WithdrawScreen' },
                         { title: 'Mobile prepaid', icon: 'phone-portrait', screen: 'PrepaidScreen' },
-                        { title: 'Pay the bill', icon: 'wallet', screen: 'BillPaymentScreen' },
+                        { title: 'Recharge', icon: 'wallet', screen: 'RechargeScreen' },
                         { title: 'Save online', icon: 'save', screen: 'SaveOnlineScreen' },
                         { title: 'Credit card', icon: 'card-outline', screen: 'CreditCardScreen' },
                         { title: 'Transaction report', icon: 'file-tray-full', screen: 'TransactionReportScreen' },
@@ -43,6 +57,17 @@ export function HomeScreen({ route, navigation }) {
                             <Text style={styles.buttonText}>{item.title}</Text>
                         </TouchableOpacity>
                     ))}
+
+                    {/* Bouton Admin */}
+                    {userDetails.isAdmin && (
+                        <TouchableOpacity
+                            style={[styles.button, styles.adminButton]}
+                            onPress={() => navigation.navigate('AdminScreen', { userDetails })}
+                        >
+                            <Ionicons name="settings" size={30} color="#FF6347" />
+                            <Text style={styles.buttonText}>Admin</Text>
+                        </TouchableOpacity>
+                    )}
                 </View>
             </View>
 
@@ -118,7 +143,7 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
     cardType: {
-        alignContent:"flex-end",
+        alignContent: "flex-end",
         color: '#ffffff',
         fontSize: 16,
     },
@@ -141,6 +166,9 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.1,
         shadowRadius: 1.41,
         elevation: 2,
+    },
+    adminButton: {
+        backgroundColor: '#FFE4E1',
     },
     buttonText: {
         fontSize: 14,

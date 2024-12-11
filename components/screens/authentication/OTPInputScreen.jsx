@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import {View, Text, TextInput, TouchableOpacity, StyleSheet, SafeAreaView} from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, SafeAreaView, Alert } from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
 
 const OTPInputScreen = ({ navigation }) => {
     const [otp, setOtp] = useState(['', '', '', '']);
+    const correctOtp = "1234"; // OTP correct
 
     const handleInputChange = (text, index) => {
         const updatedOtp = [...otp];
@@ -21,24 +22,23 @@ const OTPInputScreen = ({ navigation }) => {
     const inputs = [];
 
     const handleConfirm = () => {
-        if (otp.join('').length === 4) {
-            alert(`OTP Confirmed: ${otp.join('')}`);
+        const enteredOtp = otp.join(''); // Combine OTP digits
+        if (enteredOtp === correctOtp) {
+            Alert.alert('Success', 'OTP is correct!');
+            navigation.navigate('HomeScreen'); // Navigate to the next screen
         } else {
-            alert('Please enter a valid 4-digit OTP.');
+            Alert.alert('Error', 'Invalid OTP. Please try again.');
         }
-        navigation.navigate('HomeScreen')
     };
 
     return (
         <SafeAreaView style={styles.container}>
             {/* Go Back Icon */}
-            <View >
+            <View>
                 <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
                     <Ionicons name="arrow-back" size={28} color="#007BFF" />
                 </TouchableOpacity>
-
             </View>
-
 
             {/* Screen Content */}
             <View style={styles.content}>

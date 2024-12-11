@@ -5,27 +5,63 @@ import {
     StyleSheet,
     TextInput,
     TouchableOpacity,
-    Image, SafeAreaView,
+    Image,
+    SafeAreaView,
+    Alert,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import uuid from 'react-native-uuid';
+
+
+
+
 
 const RegistrationScreen = ({ navigation }) => {
-
     const [isChecked, setIsChecked] = useState(false);
+    const [name, setName] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
+    const [password, setPassword] = useState('');
     const [isValid, setIsValid] = useState(false);
 
-    const handleInputChange = (text: string) => {
+    const handleInputChange = (text) => {
         setPhoneNumber(text);
         setIsValid(/^\+?\d{10,15}$/.test(text)); // Validation pour les numéros internationaux (+XX...)
     };
 
-    const handleSend = () => {
-        if (isValid) {
-            console.log(`Code OTP envoyé à ${phoneNumber}`);
-
+    const saveUser = async (user) => {
+        try {
+            const users = JSON.parse(await AsyncStorage.getItem('users')) || [];
+            users.push(user);
+            await AsyncStorage.setItem('users', JSON.stringify(users));
+            Alert.alert('Success', 'User registered successfully');
+            navigation.navigate('LoginScreen');
+        } catch (e) {
+            console.error('Error saving user:', e);
+            Alert.alert('Error', 'Failed to register user');
         }
+    };
+
+
+
+    const handleRegister = () => {
+        if (name === '' || phoneNumber === '' || password === '') {
+            Alert.alert('Error', 'Please fill in all fields');
+            return;
+        }
+
+        const newUser = {
+            id : uuid.v4(),
+            name,
+            phoneNumber,
+            password,
+            balance: 0,
+            cardType: 'VISA',
+            isAdmin: true,
+        };
+
+        saveUser(newUser);
     };
 
     return (
@@ -42,8 +78,6 @@ const RegistrationScreen = ({ navigation }) => {
             <View style={styles.welcomeContainer}>
                 <Text style={styles.welcomeTitle}>Welcome to us</Text>
                 <Text style={styles.welcomeSubtitle}>Hello there, create new account</Text>
-
-                {/* Icon */}
                 <View style={styles.logoContainer}>
                     <Image
                         style={styles.logo}
@@ -54,10 +88,25 @@ const RegistrationScreen = ({ navigation }) => {
 
             {/* Input Fields */}
             <View style={styles.inputContainer}>
-                <TextInput style={styles.input} placeholder="Name" />
-                <TextInput style={styles.input} placeholder="Phone number" />
-                <TextInput style={styles.input} placeholder="Password" secureTextEntry />
-
+                <TextInput
+                    style={styles.input}
+                    placeholder="Name"
+                    value={name}
+                    onChangeText={setName}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Phone number"
+                    value={phoneNumber}
+                    onChangeText={handleInputChange}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Password"
+                    secureTextEntry
+                    value={password}
+                    onChangeText={setPassword}
+                />
 
                 <View style={styles.checkboxContainer}>
                     <BouncyCheckbox
@@ -68,26 +117,26 @@ const RegistrationScreen = ({ navigation }) => {
                         iconStyle={{ borderColor: '#E0E0E0', borderRadius: 5 }}
                         innerIconStyle={{ borderWidth: 2 }}
                         textStyle={styles.checkboxText}
-                        onPress={(isChecked: boolean) => setIsChecked(isChecked)}
+                        onPress={(checked) => setIsChecked(checked)}
                     />
                 </View>
-
-
             </View>
 
-            {/* Sign In Button */}
-            <TouchableOpacity style={styles.signInButton}
-                              /*disabled = {!isValid}*/
-                              onPress={() => navigation.navigate('OTPInputScreen')}>
-                <Text style={styles.signInButtonText} >Sign up</Text>
+            {/* Sign Up Button */}
+            <TouchableOpacity style={styles.signInButton} onPress={handleRegister}>
+                <Text style={styles.signInButtonText}>Sign up</Text>
             </TouchableOpacity>
 
-            {/* Fingerprint and Sign Up */}
+            {/* Footer */}
             <View style={styles.bottomContainer}>
-
                 <Text style={styles.signUpText}>
                     Have an account?{' '}
-                    <Text style={styles.signUpLink} onPress={() => navigation.navigate('LoginScreen')}>Sign in</Text>
+                    <Text
+                        style={styles.signUpLink}
+                        onPress={() => navigation.navigate('LoginScreen')}
+                    >
+                        Sign in
+                    </Text>
                 </Text>
             </View>
         </SafeAreaView>

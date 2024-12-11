@@ -9,8 +9,10 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-const SettingsScreen = ({ navigation }) => {
+const SettingsScreen = ({ route,navigation }) => {
     const [isNotificationsEnabled, setIsNotificationsEnabled] = React.useState(false);
+    const { userDetails, setUserDetails } = route.params || {};
+
 
     const toggleNotifications = () => {
         setIsNotificationsEnabled((prevState) => !prevState);
@@ -27,8 +29,9 @@ const SettingsScreen = ({ navigation }) => {
             </View>
 
             <View style={styles.settingItem}>
-                <TouchableOpacity onPress={() => navigation.navigate('ProfileScreen')}>
-                    <View style={styles.settingRow}>
+                <TouchableOpacity onPress={() => navigation.navigate('ProfileScreen', { userDetails, setUserDetails })}>
+
+                <View style={styles.settingRow}>
                         <Ionicons name="person-circle-outline" size={24} color="#007BFF" />
                         <Text style={styles.settingText}>Profile</Text>
                     </View>
