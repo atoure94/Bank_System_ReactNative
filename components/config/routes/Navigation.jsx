@@ -19,6 +19,7 @@ import MessageScreen from "../../screens/MessageScreen";
 import ProfileScreen from "../../screens/settings/ProfileScreen";
 import {AdminScreen} from "../../screens/AdminScreen";
 import RechargeScreen from "../../screens/RechargeScreen";
+import TransactionScreen from "../../screens/TransactionScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -44,6 +45,7 @@ const Navigation = () => {
                 <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
                 <Stack.Screen name="AdminScreen" component={AdminScreen} />
                 <Stack.Screen name="RechargeScreen" component={RechargeScreen} />
+                <Stack.Screen name="TransactionScreen" component={TransactionScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );

@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert, SafeAreaView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export function TransferScreen({ route, navigation }) {
+
     const { userDetails, setUserDetails } = route.params; // Access user details and updater function
     const [recipient, setRecipient] = useState('');
     const [amount, setAmount] = useState('');
 
-    const handleTransfer = () => {
+    const handleTransfer = async () => {
         const transferAmount = parseFloat(amount);
 
         if (!recipient || !amount || isNaN(transferAmount)) {
@@ -22,15 +24,45 @@ export function TransferScreen({ route, navigation }) {
 
         const updatedBalance = userDetails.balance - transferAmount;
 
-        // Update user details and reset inputs
-        setUserDetails({ ...userDetails, balance: updatedBalance });
+        // Create a new transaction
+        const newTransaction = {
+            id: Date.now(), // Unique ID for the transaction
+            type: 'Transfer',
+            amount: transferAmount,
+            recipient,
+            date: new Date().toISOString(),
+        };
+
+        // Update user details
+        const updatedUser = {
+            ...userDetails,
+            balance: updatedBalance,
+            transactions: [...(userDetails.transactions || []), newTransaction],
+        };
+
+        setUserDetails(updatedUser);
+
+        // Update AsyncStorage
+        try {
+            const usersData = await AsyncStorage.getItem('users');
+            if (usersData) {
+                const users = JSON.parse(usersData);
+                const updatedUsers = users.map(user =>
+                    user.id === userDetails.id ? updatedUser : user
+                );
+                await AsyncStorage.setItem('users', JSON.stringify(updatedUsers));
+            }
+        } catch (error) {
+            console.error('Error updating AsyncStorage:', error);
+        }
+
+        // Reset inputs and navigate back
         Alert.alert('Success', `Transfer of $${amount} to ${recipient} completed.`);
         setRecipient('');
         setAmount('');
-
-        // Navigate back to HomeScreen with updated details
-        navigation.navigate('HomeScreen', { userDetails: { ...userDetails, balance: updatedBalance } });
+        navigation.navigate('HomeScreen', { userDetails: updatedUser });
     };
+
 
     return (
         <SafeAreaView style={styles.container}>

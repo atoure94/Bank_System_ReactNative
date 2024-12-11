@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, SafeAreaView, Alert } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 export function WithdrawScreen({ route, navigation }) {
     const { userDetails, setUserDetails } = route.params; // Receive userDetails and updater function
     const [amount, setAmount] = useState('');
 
-    const handleWithdraw = () => {
+
+
+    const handleWithdraw = async () => {
         const withdrawAmount = parseFloat(amount);
 
         if (!amount || isNaN(withdrawAmount) || withdrawAmount <= 0) {
@@ -20,13 +24,45 @@ export function WithdrawScreen({ route, navigation }) {
 
         const newBalance = userDetails.balance - withdrawAmount;
 
-        // Update balance and reset input
-        setUserDetails({ ...userDetails, balance: newBalance });
-        setAmount('');
-        Alert.alert('Success', `Withdrawal of $${withdrawAmount} completed`);
+        try {
+            // Récupérer les utilisateurs depuis AsyncStorage
+            const usersData = await AsyncStorage.getItem('users');
+            if (usersData) {
+                const users = JSON.parse(usersData);
 
-        // Return to HomeScreen
-        navigation.goBack();
+                // Mettre à jour l'utilisateur avec la nouvelle balance et la transaction
+                const updatedUsers = users.map(user => {
+                    if (user.id === userDetails.id) {
+                        user.balance = newBalance;
+
+                        // Ajouter la transaction
+                        if (!user.transactions) user.transactions = [];
+                        user.transactions.push({
+                            id: Date.now(), // Identifiant unique pour la transaction
+                            type: 'Retrait',
+                            amount: withdrawAmount,
+                            date: new Date().toISOString(),
+                        });
+                    }
+                    return user;
+                });
+
+                // Enregistrer les mises à jour dans AsyncStorage
+                await AsyncStorage.setItem('users', JSON.stringify(updatedUsers));
+
+                // Mettre à jour l'état local
+                setUserDetails({ ...userDetails, balance: newBalance });
+            }
+
+            Alert.alert('Success', `Withdrawal of $${withdrawAmount} completed`);
+            setAmount(''); // Réinitialiser le champ de saisie
+
+            // Retour à l'écran précédent
+            navigation.goBack();
+        } catch (error) {
+            console.error('Erreur lors de la mise à jour des utilisateurs:', error);
+            Alert.alert('Erreur', 'Une erreur est survenue lors du retrait.');
+        }
     };
 
     return (

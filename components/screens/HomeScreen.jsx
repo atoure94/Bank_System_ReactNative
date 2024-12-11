@@ -45,7 +45,7 @@ export function HomeScreen({ route, navigation }) {
                         { title: 'Recharge', icon: 'wallet', screen: 'RechargeScreen' },
                         { title: 'Save online', icon: 'save', screen: 'SaveOnlineScreen' },
                         { title: 'Credit card', icon: 'card-outline', screen: 'CreditCardScreen' },
-                        { title: 'Transaction report', icon: 'file-tray-full', screen: 'TransactionReportScreen' },
+                        { title: 'Transactions', icon: 'file-tray-full', screen: 'TransactionScreen' },
                         { title: 'Beneficiary', icon: 'people', screen: 'BeneficiaryScreen' }
                     ].map((item, index) => (
                         <TouchableOpacity
